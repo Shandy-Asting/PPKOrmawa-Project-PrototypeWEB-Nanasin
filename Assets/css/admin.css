@@ -1,0 +1,276 @@
+/* ============================================================
+   UMKM DESA — admin.css
+   UI Panel Admin
+   ============================================================ */
+
+:root {
+  --blue:       #1A56DB;
+  --blue-dark:  #1e3a8a;
+  --blue-pale:  #eff6ff;
+  --sidebar-w:  240px;
+  --topbar-h:   56px;
+  --white:      #ffffff;
+  --gray-50:    #f9fafb;
+  --gray-100:   #f3f4f6;
+  --gray-200:   #e5e7eb;
+  --gray-300:   #d1d5db;
+  --gray-500:   #6b7280;
+  --gray-700:   #374151;
+  --gray-900:   #111827;
+  --green:      #059669;
+  --green-pale: #ecfdf5;
+  --red:        #dc2626;
+  --red-pale:   #fef2f2;
+  --amber:      #d97706;
+  --amber-pale: #fffbeb;
+  --radius:     8px;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Plus Jakarta Sans', Arial, sans-serif; background: var(--gray-100); color: var(--gray-900); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.admin-wrapper { display: flex; min-height: 100vh; }
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.admin-sidebar {
+  width: var(--sidebar-w);
+  background: var(--gray-900);
+  display: flex; flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 200; transition: transform .25s;
+  overflow-y: auto;
+}
+.sidebar-brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 18px 16px; border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sidebar-logo {
+  width: 34px; height: 34px; background: var(--blue);
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 16px; color: #fff; flex-shrink: 0;
+}
+.sidebar-title { display: block; font-weight: 700; font-size: 14px; color: #fff; line-height: 1.2; }
+.sidebar-sub   { display: block; font-size: 10px; color: rgba(255,255,255,0.4); }
+
+.sidebar-nav { padding: 16px 10px; flex: 1; }
+.nav-group-label {
+  display: block; font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); padding: 0 8px;
+  margin-bottom: 6px;
+}
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--radius);
+  color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 500;
+  text-decoration: none; transition: all .18s; margin-bottom: 2px;
+}
+.sidebar-link i { font-size: 16px; width: 20px; text-align: center; }
+.sidebar-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.sidebar-link.active { background: var(--blue); color: #fff; }
+.sidebar-link.text-danger-soft { color: #fca5a5; }
+.sidebar-link.text-danger-soft:hover { background: rgba(220,38,38,0.15); color: #fca5a5; }
+
+.sidebar-user {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: auto;
+}
+.sidebar-user i { font-size: 28px; color: rgba(255,255,255,0.5); }
+.sidebar-username { display: block; font-size: 13px; font-weight: 600; color: #fff; line-height: 1.2; }
+.sidebar-role     { display: block; font-size: 10px; color: rgba(255,255,255,0.4); }
+
+/* ============================================================
+   MAIN AREA
+   ============================================================ */
+.admin-main {
+  margin-left: var(--sidebar-w);
+  flex: 1; display: flex; flex-direction: column;
+  min-height: 100vh;
+}
+
+/* TOPBAR */
+.admin-topbar {
+  height: var(--topbar-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 24px; position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.sidebar-toggle {
+  background: none; border: none; font-size: 20px;
+  color: var(--gray-500); cursor: pointer; padding: 4px;
+  border-radius: 6px; transition: background .18s; display: none;
+}
+.sidebar-toggle:hover { background: var(--gray-100); }
+.topbar-title { font-weight: 700; font-size: 15px; color: var(--gray-900); flex: 1; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+
+/* KONTEN */
+.admin-content { padding: 24px; flex: 1; }
+
+/* ============================================================
+   CARD
+   ============================================================ */
+.admin-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+.admin-card-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.admin-card-title {
+  font-size: 14px; font-weight: 700; color: var(--gray-900);
+  display: flex; align-items: center; gap: 8px;
+}
+.admin-card-title i { color: var(--blue); }
+.admin-card-body { padding: 20px; }
+
+/* ============================================================
+   STAT CARDS — monitoring
+   ============================================================ */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.stat-icon.blue   { background: var(--blue-pale); color: var(--blue); }
+.stat-icon.green  { background: var(--green-pale); color: var(--green); }
+.stat-icon.amber  { background: var(--amber-pale); color: var(--amber); }
+.stat-icon.red    { background: var(--red-pale); color: var(--red); }
+.stat-num   { font-size: 24px; font-weight: 700; color: var(--gray-900); line-height: 1; }
+.stat-label { font-size: 12px; color: var(--gray-500); margin-top: 3px; }
+
+/* ============================================================
+   TABEL
+   ============================================================ */
+.table-umkm { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table-umkm thead th {
+  background: var(--gray-50); color: var(--gray-500);
+  font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+  padding: 10px 14px; border-bottom: 1px solid var(--gray-200); text-align: left;
+}
+.table-umkm tbody td {
+  padding: 12px 14px; border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700); vertical-align: middle;
+}
+.table-umkm tbody tr:last-child td { border-bottom: none; }
+.table-umkm tbody tr:hover { background: var(--gray-50); }
+
+/* ============================================================
+   BADGE STATUS
+   ============================================================ */
+.badge-aktif   { background: var(--green-pale); color: var(--green); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+.badge-nonaktif{ background: var(--red-pale); color: var(--red); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+
+/* ============================================================
+   TOMBOL AKSI
+   ============================================================ */
+.btn-add {
+  background: var(--blue); color: #fff; border: none;
+  border-radius: var(--radius); font-size: 13px; font-weight: 600;
+  padding: 8px 16px; display: inline-flex; align-items: center; gap: 6px;
+  cursor: pointer; transition: background .18s; text-decoration: none;
+}
+.btn-add:hover { background: var(--blue-dark); color: #fff; }
+.btn-edit {
+  background: var(--amber-pale); color: var(--amber); border: 1px solid #fcd34d;
+  border-radius: 6px; font-size: 12px; font-weight: 600;
+  padding: 4px 10px; cursor: pointer; transition: all .18s; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.btn-edit:hover { background: #fef3c7; }
+.btn-delete {
+  background: var(--red-pale); color: var(--red); border: 1px solid #fca5a5;
+  border-radius: 6px; font-size: 12px; font-weight: 600;
+  padding: 4px 10px; cursor: pointer; transition: all .18s;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.btn-delete:hover { background: #fee2e2; }
+.btn-toggle {
+  background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-200);
+  border-radius: 6px; font-size: 12px; font-weight: 600;
+  padding: 4px 10px; cursor: pointer; transition: all .18s;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.btn-toggle:hover { background: var(--gray-200); }
+
+/* ============================================================
+   FORM MODAL
+   ============================================================ */
+.modal-content { border: none; border-radius: 12px; box-shadow: var(--shadow-md); }
+.modal-header {
+  background: var(--gray-50); border-bottom: 1px solid var(--gray-200);
+  border-radius: 12px 12px 0 0; padding: 16px 20px;
+}
+.modal-title { font-size: 15px; font-weight: 700; }
+.modal-body  { padding: 20px; }
+.modal-footer{ padding: 14px 20px; border-top: 1px solid var(--gray-200); }
+.form-label  { font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 5px; }
+.form-control, .form-select {
+  font-size: 13px; border-color: var(--gray-300); border-radius: 6px;
+  padding: 8px 12px;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,86,219,0.12);
+}
+
+/* ============================================================
+   ALERT
+   ============================================================ */
+.alert-umkm {
+  padding: 12px 16px; border-radius: var(--radius);
+  font-size: 13px; font-weight: 500; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.alert-success { background: var(--green-pale); color: var(--green); border: 1px solid #6ee7b7; }
+.alert-error   { background: var(--red-pale); color: var(--red); border: 1px solid #fca5a5; }
+
+/* ============================================================
+   FOOTER ADMIN
+   ============================================================ */
+.admin-footer {
+  text-align: center; padding: 14px;
+  font-size: 12px; color: var(--gray-500);
+  border-top: 1px solid var(--gray-200);
+  background: var(--white);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 991px) {
+  .admin-sidebar { transform: translateX(-100%); }
+  .admin-sidebar.open { transform: translateX(0); }
+  .admin-main { margin-left: 0; }
+  .sidebar-toggle { display: flex; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 575px) {
+  .admin-content { padding: 16px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .stat-num  { font-size: 20px; }
+}

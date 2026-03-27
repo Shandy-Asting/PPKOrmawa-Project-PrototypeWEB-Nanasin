@@ -1,68 +1,62 @@
-/* ============================================================
-   UMKM DESA — main.js
-   ============================================================ */
-
 document.addEventListener('DOMContentLoaded', function () {
+  var track   = document.getElementById('produkTrack');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
 
-  // ---- FILTER KATEGORI ----
-  const filterBtns  = document.querySelectorAll('.btn-filter');
-  const productItems = document.querySelectorAll('.product-item');
+  if (track && btnPrev && btnNext) {
+    var current = 0;
+    var autoPlayDelay = 5000; // Geser otomatis setiap 5 detik
 
-  filterBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      filterBtns.forEach(function (b) { b.classList.remove('active'); });
-      this.classList.add('active');
+    function cardWidth() {
+      var c = track.querySelector('.product-card');
+      return c ? c.offsetWidth + 16 : 226;
+    }
 
-      var filter = this.dataset.filter;
-      productItems.forEach(function (item) {
-        if (filter === 'semua' || item.dataset.category === filter) {
-          item.style.display = '';
-          item.style.animation = 'fadeIn .3s ease';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+    function visible() {
+      return Math.floor(track.parentElement.offsetWidth / cardWidth());
+    }
+
+    function total() {
+      return track.querySelectorAll('.product-card').length;
+    }
+
+    function goTo(n) {
+      var max = Math.max(0, total() - visible());
+      current = n;
+      
+      // Loop: Kembali ke awal jika sudah di ujung
+      if (current > max) current = 0;
+      if (current < 0) current = max;
+
+      track.style.transform = 'translateX(-' + (current * cardWidth()) + 'px)';
+      btnPrev.style.opacity = current === 0 ? '0.4' : '1';
+      btnNext.style.opacity = current >= max ? '0.4' : '1';
+    }
+
+    // Logika Otomatis
+    var slideInterval = setInterval(function() {
+      goTo(current + 1);
+    }, autoPlayDelay);
+
+    // Reset timer jika user klik manual
+    function resetTimer() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(function() {
+        goTo(current + 1);
+      }, autoPlayDelay);
+    }
+
+    btnNext.addEventListener('click', function () { 
+      goTo(current + 1); 
+      resetTimer(); 
     });
-  });
 
-  // ---- TRACKING KLIK PRODUK ----
-  document.querySelectorAll('[data-track-product]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      fetch('../api/track.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'product', id: this.dataset.trackProduct })
-      }).catch(function () {});
+    btnPrev.addEventListener('click', function () { 
+      goTo(current - 1); 
+      resetTimer(); 
     });
-  });
 
-  // ---- TRACKING KLIK LINK MARKETPLACE ----
-  document.querySelectorAll('[data-track-link]').forEach(function (el) {
-    el.addEventListener('click', function () {
-      fetch('../api/track.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'link', id: this.dataset.trackLink })
-      }).catch(function () {});
-    });
-  });
-
-  // ---- SMOOTH SCROLL untuk anchor link ----
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
+    goTo(0);
+    window.addEventListener('resize', function () { goTo(current); });
+  }
 });
-
-// Animasi fadeIn untuk filter
-(function () {
-  var s = document.createElement('style');
-  s.textContent = '@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }';
-  document.head.appendChild(s);
-})();
