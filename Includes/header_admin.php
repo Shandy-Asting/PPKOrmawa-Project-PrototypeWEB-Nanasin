@@ -43,7 +43,7 @@
           <i class="bi bi-geo-alt"></i>Lokasi
         </a>
         <a href="dokumentasi.php" class="sidebar-link <?= $current == 'dokumentasi.php' ? 'active' : '' ?>">
-          <i class="bi bi-images"></i>Dokumentasi
+          <i class="bi bi-images"></i>Konten
         </a>
         <a href="manage_hero.php" class="sidebar-link <?= $current == 'manage_hero.php' ? 'active' : '' ?>">
           <i class="bi bi-image-fill"></i>Slider Hero

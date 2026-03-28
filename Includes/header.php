@@ -52,7 +52,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link <?= ($current == 'dokumentasi.php') ? 'active' : '' ?>" href="dokumentasi.php">
-              <i class="bi bi-images me-1"></i>Dokumentasi
+              <i class="bi bi-images me-1"></i>Konten
             </a>
           </li>
         </ul>
